@@ -153,13 +153,6 @@
             currentImageIndex = (currentImageIndex + indexChange + images.length) % images.length;
             document.getElementById('sky').setAttribute('src', images[currentImageIndex]);
 
-            const isChoiceVisible3 = images[currentImageIndex] === '#image3';
-            const isChoiceVisible8 = images[currentImageIndex] === '#image8';
-            const isChoiceVisible10 = images[currentImageIndex] === '#image11';
-            const isChoiceVisible11 = images[currentImageIndex] === '#image14';
-            const isChoiceVisible20 = images[currentImageIndex] === '#image17';
-            const isChoiceVisible21 = images[currentImageIndex] === '#image18';
-
             document.getElementById('nextHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
             document.getElementById('prevHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
 
