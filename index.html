@@ -67,11 +67,11 @@
 
         <!-- Next hotspot -->
         <a-entity id="nextHotspot" geometry="primitive: circle; radius: 1" material="color: red; opacity: 0.3"
-            position="0 0 5" rotation="-90 0 0"></a-entity>
+            position="0 0 0" rotation="-90 0 0"></a-entity>
 
         <!-- Previous hotspot -->
         <a-entity id="prevHotspot" geometry="primitive: circle; radius: 1" material="color: blue; opacity: 0.3"
-            position="0 0 -5" rotation="-90 0 0"></a-entity>
+            position="0 0 0" rotation="-90 0 0"></a-entity>
 
 
         <!-- Choice hotspots (initially hidden) -->
@@ -113,7 +113,10 @@
 
     <script>
         let currentImageIndex = 0;
-        const images = ['#image1', '#image2'];
+        const images = ['#image1', '#image2', '#image3', '#image8', '#image4', '#image7', '#image3', '#image8', '#image10', '#image3',
+            '#image5', '#image11', '#image6', '#image8', '#image3', '#image12', '#image3', '#image8', '#image13', '#image17',
+            '#image15', '#image14', '#image16', '#image18', '#image17', '#image19', '#image21', '#image20', '#image18', '#image17',
+            '#image22', '#image24', '#image23', '#image18', '#image17', '#image25', '#image18', '#image8', '#image9'];
 
         // 選択肢ホットスポットと対応する画像インデックスを定義
         const choiceHotspots = [
@@ -149,6 +152,13 @@
         function changeImage(indexChange) {
             currentImageIndex = (currentImageIndex + indexChange + images.length) % images.length;
             document.getElementById('sky').setAttribute('src', images[currentImageIndex]);
+
+            const isChoiceVisible3 = images[currentImageIndex] === '#image3';
+            const isChoiceVisible8 = images[currentImageIndex] === '#image8';
+            const isChoiceVisible10 = images[currentImageIndex] === '#image11';
+            const isChoiceVisible11 = images[currentImageIndex] === '#image14';
+            const isChoiceVisible20 = images[currentImageIndex] === '#image17';
+            const isChoiceVisible21 = images[currentImageIndex] === '#image18';
 
             document.getElementById('nextHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
             document.getElementById('prevHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
