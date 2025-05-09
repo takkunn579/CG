@@ -67,12 +67,11 @@
 
         <!-- Next hotspot -->
         <a-entity id="nextHotspot" geometry="primitive: circle; radius: 1" material="color: red; opacity: 0.3"
-            position="0 0 -5" rotation="-90 0 0"></a-entity>
+            position="5 0 0" rotation="-90 0 0"></a-entity>
 
         <!-- Previous hotspot -->
         <a-entity id="prevHotspot" geometry="primitive: circle; radius: 1" material="color: blue; opacity: 0.3"
-            position="0 0 5" rotation="-90 0 0"></a-entity>
-
+            position="-5 0 0" rotation="-90 0 0"></a-entity>
 
         <!-- Choice hotspots (initially hidden) -->
         <a-image id="choice1" src="#choiceImage1" position="0 2 -3" rotation="0 0 0" scale="1.5 1.5 0"
@@ -153,10 +152,27 @@
             currentImageIndex = (currentImageIndex + indexChange + images.length) % images.length;
             document.getElementById('sky').setAttribute('src', images[currentImageIndex]);
 
+            const isChoiceVisible3 = images[currentImageIndex] === '#image3';
+            const isChoiceVisible8 = images[currentImageIndex] === '#image8';
+            const isChoiceVisible10 = images[currentImageIndex] === '#image11';
+            const isChoiceVisible11 = images[currentImageIndex] === '#image14';
+            const isChoiceVisible20 = images[currentImageIndex] === '#image17';
+            const isChoiceVisible21 = images[currentImageIndex] === '#image18';
+
             document.getElementById('nextHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
             document.getElementById('prevHotspot').setAttribute('visible', !(isChoiceVisible3 || isChoiceVisible8 || isChoiceVisible20 || isChoiceVisible21));
 
             const activeChoiceHotspots = isChoiceVisible3 ? choiceHotspots : isChoiceVisible8 ? choiceHotspots2 : isChoiceVisible10 ? choiceHotspots3 : isChoiceVisible11 ? choiceHotspots4 : isChoiceVisible20 ? choiceHotspots5 : isChoiceVisible21 ? choiceHotspots6 : [];
+
+            // 全ての選択肢ホットスポットを非表示し、画面外に移動
+            [...choiceHotspots, ...choiceHotspots2, ...choiceHotspots3, ...choiceHotspots4, ...choiceHotspots5, ...choiceHotspots6].forEach(({ id }) => {
+                const choiceElement = document.getElementById(id);
+                if (choiceElement) {
+                    choiceElement.setAttribute('visible', false);
+                    choiceElement.setAttribute('position', '0 -50 0'); // 画面外に移動
+                    choiceElement.onclick = null; // イベントリスナーをリセット
+                }
+            });
 
             // アクティブな選択肢を表示し、元の座標に戻す
             activeChoiceHotspots.forEach(({ id, targetIndex }) => {
